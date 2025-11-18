@@ -12,6 +12,9 @@ import {
   Star,
   Plus
 } from "lucide-react";
+import { ProjectProgressChart } from "@/components/charts/ProjectProgressChart";
+import { WorkerAllocationChart } from "@/components/charts/WorkerAllocationChart";
+import { BudgetBreakdownChart } from "@/components/charts/BudgetBreakdownChart";
 
 const ConstructionCompany = () => {
   const activeProjects = [
@@ -87,8 +90,20 @@ const ConstructionCompany = () => {
           </EnhancedButton>
         </div>
 
-        {/* Projects List */}
-        <Card>
+      {/* Analytics Dashboard */}
+      <section>
+        <h2 className="text-2xl font-semibold mb-6">Project Analytics</h2>
+        <div className="grid gap-6 md:grid-cols-2 mb-8">
+          <ProjectProgressChart />
+          <BudgetBreakdownChart />
+        </div>
+        <div className="mb-8">
+          <WorkerAllocationChart />
+        </div>
+      </section>
+
+      {/* Projects List */}
+      <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Building2 className="h-5 w-5 text-primary-accent" />

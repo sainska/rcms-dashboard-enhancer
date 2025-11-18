@@ -13,6 +13,8 @@ import {
   ArrowDownLeft,
   FileText
 } from "lucide-react";
+import { FinancialAnalyticsChart } from "@/components/charts/FinancialAnalyticsChart";
+import { BudgetBreakdownChart } from "@/components/charts/BudgetBreakdownChart";
 
 const BankManagement = () => {
   const transactions = [
@@ -66,8 +68,17 @@ const BankManagement = () => {
           </EnhancedButton>
         </div>
 
-        {/* Transactions */}
-        <Card>
+      {/* Financial Analytics */}
+      <section>
+        <h2 className="text-2xl font-semibold mb-6">Financial Analytics</h2>
+        <div className="grid gap-6 md:grid-cols-2 mb-8">
+          <FinancialAnalyticsChart />
+          <BudgetBreakdownChart />
+        </div>
+      </section>
+
+      {/* Transactions */}
+      <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Landmark className="h-5 w-5 text-primary-accent" />
