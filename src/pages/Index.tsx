@@ -84,6 +84,19 @@ const Index = () => {
             Connect with certified construction firms, track project progress in real-time, 
             and ensure secure milestone payments through our comprehensive management platform.
           </p>
+          
+          <div className="flex items-center justify-center gap-4 mb-12">
+            <Link to="/register">
+              <EnhancedButton size="lg" variant="default">
+                Get Started
+              </EnhancedButton>
+            </Link>
+            <Link to="/login">
+              <EnhancedButton size="lg" variant="outline">
+                Sign In
+              </EnhancedButton>
+            </Link>
+          </div>
         </div>
 
         {/* Features */}

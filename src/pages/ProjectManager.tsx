@@ -12,6 +12,9 @@ import {
   TrendingUp,
   Settings
 } from "lucide-react";
+import { ProjectProgressChart } from "@/components/charts/ProjectProgressChart";
+import { FinancialAnalyticsChart } from "@/components/charts/FinancialAnalyticsChart";
+import { WorkerAllocationChart } from "@/components/charts/WorkerAllocationChart";
 
 const ProjectManager = () => {
   const milestones = [
@@ -64,8 +67,20 @@ const ProjectManager = () => {
           </EnhancedButton>
         </div>
 
-        {/* Milestones List */}
-        <Card>
+      {/* Analytics & Progress */}
+      <section>
+        <h2 className="text-2xl font-semibold mb-6">Project Analytics & Progress</h2>
+        <div className="grid gap-6 md:grid-cols-2 mb-8">
+          <ProjectProgressChart />
+          <FinancialAnalyticsChart />
+        </div>
+        <div className="mb-8">
+          <WorkerAllocationChart />
+        </div>
+      </section>
+
+      {/* Milestones List */}
+      <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <ClipboardCheck className="h-5 w-5 text-primary-accent" />
