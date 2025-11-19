@@ -1,16 +1,20 @@
 import { ReactNode } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { 
   Building2, 
   Landmark, 
   ClipboardCheck, 
   User, 
   Home,
-  Menu
+  Menu,
+  LogOut,
+  UserCircle
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { EnhancedButton } from "./ui/enhanced-button";
 import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
+import { useAuth } from "@/hooks/useAuth";
+import { toast } from "sonner";
 
 interface DashboardLayoutProps {
   children: ReactNode;
@@ -27,6 +31,14 @@ const navigation = [
 
 export const DashboardLayout = ({ children, title }: DashboardLayoutProps) => {
   const location = useLocation();
+  const navigate = useNavigate();
+  const { user, logout } = useAuth();
+
+  const handleLogout = () => {
+    logout();
+    toast.success("Logged out successfully");
+    navigate("/login");
+  };
 
   const NavLinks = () => (
     <>
@@ -65,12 +77,33 @@ export const DashboardLayout = ({ children, title }: DashboardLayoutProps) => {
               </EnhancedButton>
             </SheetTrigger>
             <SheetContent side="left" className="w-64 bg-sidebar p-0">
-              <nav className="flex flex-col gap-2 p-4">
+              <nav className="flex flex-col gap-2 p-4 h-full">
                 <div className="mb-6">
                   <h2 className="text-2xl font-bold text-sidebar-foreground">RCMS</h2>
                   <p className="text-sm text-sidebar-foreground/70">Remote Construction Management</p>
                 </div>
-                <NavLinks />
+                <div className="flex-1">
+                  <NavLinks />
+                </div>
+                {user && (
+                  <div className="border-t border-sidebar-border pt-4 mt-4">
+                    <div className="flex items-center gap-3 px-3 py-2 mb-2">
+                      <UserCircle className="h-5 w-5 text-sidebar-foreground" />
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm font-medium text-sidebar-foreground truncate">{user.name}</p>
+                        <p className="text-xs text-sidebar-foreground/70 truncate">{user.email}</p>
+                      </div>
+                    </div>
+                    <EnhancedButton 
+                      onClick={handleLogout}
+                      variant="outline" 
+                      className="w-full justify-start gap-3"
+                    >
+                      <LogOut className="h-4 w-4" />
+                      Logout
+                    </EnhancedButton>
+                  </div>
+                )}
               </nav>
             </SheetContent>
           </Sheet>
@@ -80,14 +113,33 @@ export const DashboardLayout = ({ children, title }: DashboardLayoutProps) => {
       <div className="flex">
         {/* Desktop Sidebar */}
         <aside className="hidden lg:flex w-64 flex-col fixed inset-y-0 z-50 bg-sidebar border-r border-sidebar-border shadow-accent">
-          <div className="flex flex-col gap-2 p-6">
+          <div className="flex flex-col gap-2 p-6 h-full">
             <div className="mb-6">
               <h2 className="text-2xl font-bold text-sidebar-foreground">RCMS</h2>
               <p className="text-sm text-sidebar-foreground/70">Remote Construction Management</p>
             </div>
-            <nav className="flex flex-col gap-2">
+            <nav className="flex flex-col gap-2 flex-1">
               <NavLinks />
             </nav>
+            {user && (
+              <div className="border-t border-sidebar-border pt-4 mt-4">
+                <div className="flex items-center gap-3 px-3 py-2 mb-2">
+                  <UserCircle className="h-5 w-5 text-sidebar-foreground" />
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm font-medium text-sidebar-foreground truncate">{user.name}</p>
+                    <p className="text-xs text-sidebar-foreground/70 truncate">{user.email}</p>
+                  </div>
+                </div>
+                <EnhancedButton 
+                  onClick={handleLogout}
+                  variant="outline" 
+                  className="w-full justify-start gap-3"
+                >
+                  <LogOut className="h-4 w-4" />
+                  Logout
+                </EnhancedButton>
+              </div>
+            )}
           </div>
         </aside>
 
